@@ -1,6 +1,11 @@
 import cv2 as cv
 import mediapipe as mp
-import time
+
+from mediapipe.python.solutions.hands_connections import HAND_CONNECTIONS
+
+mpHands = mp.solutions.hands
+hands = mpHands.Hands()
+mpDraw = mp.solutions.drawing_utils
 
 # Capturing vid (cange filename to 0 if need webcam)
 capture = cv.VideoCapture("videos/hand_vid_test.3gp")
@@ -14,6 +19,11 @@ while True:
         break
 
     imgRGB = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
+    results = hands.process(imgRGB)
+
+    if results.multi_hand_landmarks:
+        for hand in results.multi_hand_landmarks:
+            mpDraw.draw_landmarks(frame, hand, HAND_CONNECTIONS)
 
     cv.imshow("Video", frame)
     key = cv.waitKey(1)
