@@ -1,11 +1,15 @@
 import cv2 as cv
 import mediapipe as mp
+import time
 
 from mediapipe.python.solutions.hands_connections import HAND_CONNECTIONS
 
 mpHands = mp.solutions.hands
 hands = mpHands.Hands()
 mpDraw = mp.solutions.drawing_utils
+
+cTime = 0
+pTime = 0
 
 # Capturing vid (cange filename to 0 if need webcam)
 capture = cv.VideoCapture("videos/hand_vid_test.3gp")
@@ -24,6 +28,14 @@ while True:
     if results.multi_hand_landmarks:
         for hand in results.multi_hand_landmarks:
             mpDraw.draw_landmarks(frame, hand, HAND_CONNECTIONS)
+
+    # Calculating fps
+    cTime = time.time()
+    fps = 1 / (cTime - pTime)
+    pTime = cTime
+
+    # Displaying fps
+    cv.putText(frame, str(int(fps)), (10, 70), cv.FONT_HERSHEY_COMPLEX, 3, (255, 0, 0), 2)
 
     cv.imshow("Video", frame)
     key = cv.waitKey(1)
