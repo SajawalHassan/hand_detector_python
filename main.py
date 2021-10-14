@@ -1,12 +1,7 @@
 import cv2 as cv
 import mediapipe as mp
 import time
-
-from mediapipe.python.solutions.hands_connections import HAND_CONNECTIONS
-
-mpHands = mp.solutions.hands
-hands = mpHands.Hands()
-mpDraw = mp.solutions.drawing_utils
+import hand_detector_module as hand_detector
 
 cTime = 0
 pTime = 0
@@ -22,12 +17,9 @@ while True:
     if not succses:
         break
 
-    imgRGB = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
-    results = hands.process(imgRGB)
+    detector = hand_detector.HandDetector()
 
-    if results.multi_hand_landmarks:
-        for hand in results.multi_hand_landmarks:
-            mpDraw.draw_landmarks(frame, hand, HAND_CONNECTIONS)
+    detector.detectHands(frame)
 
     # Calculating fps
     cTime = time.time()

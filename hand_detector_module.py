@@ -22,44 +22,4 @@ class HandDetector():
         if results.multi_hand_landmarks:
             for hand in results.multi_hand_landmarks:
                 self.mpDraw.draw_landmarks(frame, hand, HAND_CONNECTIONS)
-
-
-def main(fps=True):
-    pTime = 0
-
-    # Capturing vid (cange filename to 0 if need webcam)
-    capture = cv.VideoCapture("videos/hand_vid_test.3gp")
-
-    detector = HandDetector()
-
-    while True:
-        # Reading currunt frame
-        succses, img = capture.read()
-
-        # If can't read currunt frame, break loop
-        if not succses:
-            break
-
-        detector.detectHands(frame=img)
-
-        if fps:
-            # Calculating fps
-            cTime = time.time()
-            fps = 1 / (cTime - pTime)
-            pTime = cTime
-
-            # Displaying fps
-            cv.putText(img, str(int(fps)), (10, 70), cv.FONT_HERSHEY_COMPLEX, 3, (255, 0, 0), 2)
-
-        cv.imshow("Video", img)
-        key = cv.waitKey(1)
-
-        if key==27:
-            break # If key is pressed, break loop
-
-    capture.release()
-    cv.destroyAllWindows()
-
-
-if __name__ == "__main__":
-    main()
+                
