@@ -23,19 +23,19 @@ class HandDetector():
             for self.hand in self.results.multi_hand_landmarks:
                 self.mpDraw.draw_landmarks(frame, self.hand, HAND_CONNECTIONS)
 
-    def findPos(self, img, handNo=0, draw=True):
+    def findPos(self, img, lmNo=0, draw=True):
 
         lmList = []
 
         if self.results.multi_hand_landmarks:
-            myHand = self.results.multi_hand_landmarks[handNo] # Getting first hand detected
+            myHand = self.results.multi_hand_landmarks[lmNo] # Getting lm index
             
-            for id, lm in enumerate(myHand.landmark): # For each lm in detected hand
+            for id, lm in enumerate(myHand.landmark):
                 h, w, c = img.shape # Get w, h
                 cx, cy = int(lm.x * w), int(lm.y * h) # Convert w, h to pixels
                 lmList.append([id, cx, cy]) # Add updates values to lmList
 
                 if draw:
-                    cv.circle(img, (cx, cy), 2, (255, 0, 0), cv.FILLED)
+                    cv.circle(img, (cx, cy), 10, (0, 255, 0), cv.FILLED)
 
         return lmList
