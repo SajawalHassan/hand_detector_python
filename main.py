@@ -7,7 +7,7 @@ cTime = 0
 pTime = 0
 
 # Capturing vid (cange filename to 0 if need webcam)
-capture = cv.VideoCapture("videos/hand_vid_test.3gp")
+capture = cv.VideoCapture(0)
 
 while True:
     # Reading currunt frame
