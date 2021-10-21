@@ -1,6 +1,5 @@
 import cv2 as cv
 import mediapipe as mp
-import time
 
 from mediapipe.python.solutions.hands_connections import HAND_CONNECTIONS
 
@@ -15,14 +14,17 @@ class HandDetector():
         self.hands = self.mpHands.Hands(static_img, max_num_hands, detection_con, tracking_con)
         self.mpDraw = mp.solutions.drawing_utils
 
-    def detectHands(self,frame):
-        imgRGB = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
+    # For detecting hand
+    def detectHands(self,img, draw=True):
+        imgRGB = cv.cvtColor(img, cv.COLOR_BGR2RGB)
         self.results = self.hands.process(imgRGB)
 
-        if self.results.multi_hand_landmarks:
-            for self.hand in self.results.multi_hand_landmarks:
-                self.mpDraw.draw_landmarks(frame, self.hand, HAND_CONNECTIONS)
+        if draw:
+            if self.results.multi_hand_landmarks:
+                for self.hand in self.results.multi_hand_landmarks:
+                    self.mpDraw.draw_landmarks(img, self.hand, HAND_CONNECTIONS)
 
+    # For finding lms(landmarks) position in detected hand
     def findPos(self, img, lmNo=0, draw=True):
 
         lmList = []
