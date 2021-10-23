@@ -1,6 +1,6 @@
 <!-- TABLE OF CONTENTS -->
-  <h1>Table of contents</h1>
-  <ol>
+<details>
+  Table of contents
     <li>
       <a href="#about-the-project">About The Project</a>
       <ul>
@@ -14,8 +14,8 @@
       </ul>
     </li>
     <li><a href="#contributing">Contributing</a></li>
-  </ol>
 
+</details>
 <!-- ABOUT THE PROJECT -->
 
 # About The Project
@@ -39,19 +39,10 @@ To get a local copy up and running follow these simple example steps.
 
 This is an example of how to list things you need to use the software and how to install them.
 
-- open-cv
-
 ```sh
-pip install opencv-python
+pip install -r Requirements.txt
 ```
 
-- mediapipe
-
-```sh
-pip install mediapipe
-```
-
-- python
 
 <!-- CONTRIBUTING -->
 
